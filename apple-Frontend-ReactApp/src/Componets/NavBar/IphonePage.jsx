@@ -16,22 +16,24 @@ useEffect(() => {
   fetch(`${API_BASE_URL}/iphones`)
     .then(async (res) => {
       if (!res.ok) {
-        const text = await res.text();
-        throw new Error(`API Error ${res.status}: ${text}`);
+        const err = await res.json();
+        throw new Error(err.sqlMessage || "Server error");
       }
       return res.json();
     })
     .then((data) => {
+      if (!Array.isArray(data)) {
+        throw new Error("Invalid API response");
+      }
       setIphones(data);
       setLoading(false);
     })
     .catch((err) => {
-      console.error("Fetch error:", err.message);
-      setError("Backend API is unreachable or returned invalid data.");
+      console.error(err);
+      setError(err.message);
       setLoading(false);
     });
 }, []);
-
 
 
   // useEffect(() => {
