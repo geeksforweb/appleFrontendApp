@@ -1,0 +1,97 @@
+/* ======================================================= */
+/* 1. MOBILE-FIRST STYLES (Default: Small Screens / Stacked) */
+/* These styles apply to ALL screens unless overridden later. */
+/* ======================================================= */
+
+/* General Layout and Structure */
+.all-videos-wrapper {
+    padding: 20px 0;
+}
+
+.video-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.video-title-wrapper {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* --- Flexbox Container Setup (Mobile: Stacked) --- */
+.videos-grid {
+    display: flex;
+    flex-wrap: wrap; /* Important: Allows items to wrap to the next line */
+    justify-content: space-between;
+    padding: 0 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- Mobile Item Styling: Full Width to Force Stacking --- */
+.video-item {
+    /* Takes 100% width on small screens, forcing one video per row (stacked) */
+    width: 100%; 
+    margin-bottom: 20px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+/* Video Detail Styles */
+.video-thumbnail img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+.video-info-wrapper {
+    padding-top: 10px;
+}
+
+.video-title a {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.video-desc {
+    font-size: 0.9em;
+    color: #555;
+    /* Limits description text to 3 lines */
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* ======================================================= */
+/* 2. MEDIA QUERY (Overrides for Large Screens / 2 Columns) */
+/* These styles only apply when the screen is 768px wide or wider. */
+/* ======================================================= */
+@media (min-width: 768px) {
+    
+    .videos-grid {
+        /* Optional: adjust padding for larger screens */
+        padding: 0; 
+    }
+
+    .video-item {
+        /* Calculates the width for two videos per row, allowing space in between. */
+        /* (100% - 40px combined margin) / 2 = 50% - 20px */
+        width: calc(50% - 20px); 
+        margin-bottom: 40px; /* Increased vertical spacing between rows */
+        padding: 0; /* Reset internal padding */
+    }
+    .video-desc {
+        line-clamp: 4; /* Allow a slightly longer description on desktop */
+    }
+}
