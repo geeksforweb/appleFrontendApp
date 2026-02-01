@@ -9,20 +9,45 @@ function IphonePage() {
   const [loading, setLoading] = useState(true); // 1. Add loading state
   const [error, setError] = useState(null); // 2. Add error state
 
-  useEffect(() => {
-    setLoading(true);
-      fetch(`${API_BASE_URL}/iphones`)
-        .then((res) => res.json())
-        .then((data) => {
-          setIphones(data);
-          setLoading(false); // Data is here!
-        })
-        .catch((err) => {
-          console.error("Fetch error:", err);
-          setError("Could not load iPhones. Please try again later.");
-          setLoading(false);
-        });
-  }, []);
+
+useEffect(() => {
+  setLoading(true);
+
+  fetch(`${API_BASE_URL}/iphones`)
+    .then(async (res) => {
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(`API Error ${res.status}: ${text}`);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      setIphones(data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error("Fetch error:", err.message);
+      setError("Backend API is unreachable or returned invalid data.");
+      setLoading(false);
+    });
+}, []);
+
+
+
+  // useEffect(() => {
+  //   setLoading(true);
+  //     fetch(`${API_BASE_URL}/iphones`)
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         setIphones(data);
+  //         setLoading(false); // Data is here!
+  //       })
+  //       .catch((err) => {
+  //         console.error("Fetch error:", err);
+  //         setError("Could not load iPhones. Please try again later.");
+  //         setLoading(false);
+  //       });
+  // }, []);
 
   // 3. Conditional Rendering
   if (loading) {
