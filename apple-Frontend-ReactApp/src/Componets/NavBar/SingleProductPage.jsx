@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Four04 from "../404/Four04";
 import axiosBase from "../../api/axiosConfig";
+const API_BASE_URL = import.meta.env.VITE_API_URL; // || "http://localhost:3001";
+
 
 function SingleProductPage() {
   const { productID } = useParams();
@@ -10,20 +12,20 @@ function SingleProductPage() {
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
-    axiosBase.get(`/iphones/${productID}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Product not found");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        // IMPORTANT: backend sends { products: [...] }
-        setProduct(data.products[0]); // 👈 take the single product
-      })
-      .catch(() => {
-        setNotFound(true);
-      });
+      fetch(`${API_BASE_URL}/iphones/${productID}`)
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Product not found");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          // IMPORTANT: backend sends { products: [...] }
+          setProduct(data.products[0]); // 👈 take the single product
+        })
+        .catch(() => {
+          setNotFound(true);
+        });
   }, [productID]);
 
   // ⏳ Loading

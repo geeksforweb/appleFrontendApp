@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axiosBase from "../../api/axiosConfig";
+const API_BASE_URL = import.meta.env.VITE_API_URL; // || "http://localhost:3001";
+
 
 function IphonePage() {
   const [iphones, setIphones] = useState([]);
@@ -9,17 +11,17 @@ function IphonePage() {
 
   useEffect(() => {
     setLoading(true);
-    axiosBase
-      .get("/iphones")
-      .then((res) => {
-        setIphones(res.data);
-        setLoading(false); // Data is here!
-      })
-      .catch((err) => {
-        console.error("Fetch error:", err);
-        setError("Could not load iPhones. Please try again later.");
-        setLoading(false);
-      });
+      fetch(`${API_BASE_URL}/iphones`)
+        .then((res) => res.json())
+        .then((data) => {
+          setIphones(data);
+          setLoading(false); // Data is here!
+        })
+        .catch((err) => {
+          console.error("Fetch error:", err);
+          setError("Could not load iPhones. Please try again later.");
+          setLoading(false);
+        });
   }, []);
 
   // 3. Conditional Rendering
