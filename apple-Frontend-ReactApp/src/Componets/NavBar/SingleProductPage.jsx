@@ -8,8 +8,10 @@ function SingleProductPage() {
   const [product, setProduct] = useState(null);
   const [notFound, setNotFound] = useState(false);
 
+  const API_URL = import.meta.env.VITE_API_URL; //.env URL
+
   useEffect(() => {
-    fetch(`https://applsite.gashawtech.com/iphones/${id}`)
+    fetch(`${API_URL}/iphones/${id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Product not found");

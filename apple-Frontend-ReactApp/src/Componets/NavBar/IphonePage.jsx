@@ -97,8 +97,11 @@ function IphonePage() {
   const [iphones, setIphones] = useState([]);
   const [loading, setLoading] = useState(true); //loader state
 
+  // Get API URL from .env
+  const API_URL = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
-    fetch("https://applsite.gashawtech.com/iphones")
+    fetch(`${API_URL}/iphones`)
       .then((res) => {
         if (!res.ok) throw new Error("Network response failed");
         return res.json();
