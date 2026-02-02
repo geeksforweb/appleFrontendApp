@@ -29,7 +29,8 @@ function App() {
           {/* FIXED DYNAMIC ROUTE */}
           {/* <Route path="iphone/:productID" element={<SingleProductPage />} /> */}
 
-          <Route path="iphone/:productID" element={<SingleProductPage />} />
+          {/* <Route path="iphone/:productID" element={<SingleProductPage />} /> */}
+          <Route path="/iphone/:id" element={<SingleProductPage />} />
 
           <Route path="ipad" element={<IpadPage />} />
           <Route path="watch" element={<WatchPage />} />

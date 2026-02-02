@@ -1,44 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Four04 from "../404/Four04";
-import axiosBase from "../../api/axiosConfig";
-const API_BASE_URL = import.meta.env.VITE_API_URL; // || "http://localhost:3001";
-
 
 function SingleProductPage() {
-  const { productID } = useParams();
+  const { id } = useParams(); // FIXED param name
 
-  const [product, setProduct] = useState(null); // null = loading
+  const [product, setProduct] = useState(null);
   const [notFound, setNotFound] = useState(false);
 
   useEffect(() => {
-      fetch(`${API_BASE_URL}/iphones/${productID}`)
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error("Product not found");
-          }
-          return res.json();
-        })
-        .then((data) => {
-          // IMPORTANT: backend sends { products: [...] }
-          setProduct(data.products[0]); // 👈 take the single product
-        })
-        .catch(() => {
-          setNotFound(true);
-        });
-  }, [productID]);
+    fetch(`https://applsite.gashawtech.com/iphones/${id}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Product not found");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setProduct(data); // backend returns single object
+      })
+      .catch(() => {
+        setNotFound(true);
+      });
+  }, [id]);
 
   // ⏳ Loading
-  if (product === null && !notFound) {
+  if (!product && !notFound) {
     return <h3 className="text-center mt-5">Loading...</h3>;
   }
 
-  // ❌ Not found
+  // Not found
   if (notFound) {
     return <Four04 />;
   }
 
-  // ✅ Product found
+  // Product found
   return (
     <section className="internal-page-wrapper">
       <div className="container">
@@ -56,14 +52,18 @@ function SingleProductPage() {
         <div className="row justify-content-center text-center product-holder h-100 m-5">
           <div className="col-sm-12 col-md-6 my-auto">
             <div className="starting-price">
-              Starting at ${product.Starting_price}
+              Starting at {product.Starting_price}
             </div>
             <div className="monthly-price">{product.Price_range}</div>
             <div className="product-details">{product.Product_description}</div>
           </div>
 
           <div className="col-sm-12 col-md-6">
-            <img src={product.Product_img} alt="product" />
+            <img
+              src={product.Product_img}
+              alt={product.product_name}
+              className="img-fluid"
+            />
           </div>
         </div>
       </div>
