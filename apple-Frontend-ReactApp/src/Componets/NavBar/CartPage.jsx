@@ -8,9 +8,7 @@ function CartPage() {
           <div className="row h-100 align-items-center justify-content-center text-center">
             <div className="col-12 mt-5 pt-5">
               <h1 className="font-weight-bold">
-                Cart Page ( Under Development: it will available after 10 days -
-                click on iphone products from navbar to see products that are
-                done as demo)
+                Cart Page ( Under Development) and i have implemented cart on my amazon clone project
               </h1>
             </div>
           </div>

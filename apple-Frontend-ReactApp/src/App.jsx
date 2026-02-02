@@ -1,49 +1,46 @@
-import Four04 from "./Componets/404/Four04";
-import Footer from "./Componets/Footer/Footer";
-import Header from "./Componets/Header/Header";
-import Mainpage from "./Componets/MainPage/Mainpage";
+import { Routes, Route } from "react-router-dom";
+
 import SharedLayout from "./Componets/MainPage/SharedLayout";
-import CartPage from "./Componets/NavBar/CartPage";
-import IpadPage from "./Componets/NavBar/IpadPage";
+import Mainpage from "./Componets/MainPage/Mainpage";
+import Four04 from "./Componets/404/Four04";
+
 import IphonePage from "./Componets/NavBar/IphonePage";
 import MacPage from "./Componets/NavBar/MacPage";
+import IpadPage from "./Componets/NavBar/IpadPage";
+import WatchPage from "./Componets/NavBar/WatchPage";
+import TvPage from "./Componets/NavBar/TvPage";
 import MusicPage from "./Componets/NavBar/MusicPage";
+
+import SingleProductPage from "./Componets/NavBar/SingleProductPage";
+import CartPage from "./Componets/NavBar/CartPage";
 import SearchPage from "./Componets/NavBar/SearchPage";
 import SupportPage from "./Componets/NavBar/SupportPage";
-import TvPage from "./Componets/NavBar/TvPage";
-import WatchPage from "./Componets/NavBar/WatchPage";
-import YoutubeVideos from "./Componets/YoutubeVideos/YoutubeVideos";
-
-import { Route, Routes } from "react-router-dom";
-import SingleProductPage from "./Componets/NavBar/SingleProductPage";
 
 function App() {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<Mainpage />} />
-          <Route path="mac" element={<MacPage />} />
-          <Route path="iphone" element={<IphonePage />} />
+    <Routes>
+      <Route path="/" element={<SharedLayout />}>
+        <Route index element={<Mainpage />} />
 
-          {/* FIXED DYNAMIC ROUTE */}
-          {/* <Route path="iphone/:productID" element={<SingleProductPage />} /> */}
+        {/* Category pages */}
+        <Route path="iphone" element={<IphonePage />} />
+        <Route path="mac" element={<MacPage />} />
+        <Route path="ipad" element={<IpadPage />} />
+        <Route path="watch" element={<WatchPage />} />
+        <Route path="tv" element={<TvPage />} />
+        <Route path="music" element={<MusicPage />} />
 
-          {/* <Route path="iphone/:productID" element={<SingleProductPage />} /> */}
-          <Route path="/iphone/:id" element={<SingleProductPage />} />
+        {/* Single product (ALL categories) */}
+        <Route path="product/:id" element={<SingleProductPage />} />
 
-          <Route path="ipad" element={<IpadPage />} />
-          <Route path="watch" element={<WatchPage />} />
-          <Route path="tv" element={<TvPage />} />
-          <Route path="music" element={<MusicPage />} />
-          <Route path="support" element={<SupportPage />} />
-          <Route path="search" element={<SearchPage />} />
-          <Route path="cart" element={<CartPage />} />
+        {/* Others */}
+        <Route path="cart" element={<CartPage />} />
+        <Route path="search" element={<SearchPage />} />
+        <Route path="support" element={<SupportPage />} />
 
-          <Route path="*" element={<Four04 />} />
-        </Route>
-      </Routes>
-    </>
+        <Route path="*" element={<Four04 />} />
+      </Route>
+    </Routes>
   );
 }
 
